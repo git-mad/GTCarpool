@@ -11,10 +11,12 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="271dp">
+
         <View
+            android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient_background"/>
+            android:background="@drawable/gradient_background" />
 
     </FrameLayout>
 
@@ -22,5 +24,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Carpool Requests!" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="420dp" />
+
 
 </FrameLayout>

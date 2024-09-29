@@ -3,12 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/cardview_compat_inset_shadow"
+    android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
+    android:gravity="center_vertical"
     tools:context=".MessagesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_messages"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Messages!" />
+        android:layout_height="wrap_content" />
 
+    <TextView
+        android:id="@+id/messagesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/messages_chat"
+        android:textSize="18sp"/>
 </FrameLayout>

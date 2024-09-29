@@ -11,15 +11,19 @@ class MainActivity : AppCompatActivity() {
 //        setContentView(R.layout.activity_main)
         setContentView(R.layout.bottom_nav) //  testing nav screen
         val carpoolFragment = Carpoolfragment()
+        val contactsFragment = ContactsFragment()
         val messagesFragment = MessagesFragment()
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         setCurrentFragment(carpoolFragment)
         bottomNavigationView.setOnNavigationItemSelectedListener {
+
             when(it.itemId){
                 R.id.home->setCurrentFragment(carpoolFragment)
                 R.id.carpool->setCurrentFragment(carpoolFragment)
                 R.id.settings->setCurrentFragment(carpoolFragment)
-                R.id.messages->setCurrentFragment(messagesFragment)
+                R.id.messages->setCurrentFragment(contactsFragment)
+                // R.id.messages->setCurrentFragment(messagesFragment) // Will be edited later
+
             }
             true
         }

@@ -1,26 +1,21 @@
 package com.example.gtcarpool
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
  * A simple [Fragment] subclass.
- * Use the [MessagesFragment.newInstance] factory method to
+ * Use the [ContactsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MessagesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+class ContactsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
@@ -37,22 +32,31 @@ class MessagesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_messages, container, false)
+        return inflater.inflate(R.layout.fragment_contacts, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        createContactRecyclerView()
+    }
+
+    fun createContactRecyclerView() {
+        val dataset = arrayOf("John Doe", "Jane Doe", "James Madison", "Benjamin Franklin")
+        val customAdapter = CustomAdapter(dataset)
+
+        val recyclerView: RecyclerView? = view?.findViewById(R.id.fragment_contacts)
+        recyclerView?.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView?.adapter = customAdapter
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MessagesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+        private const val ARG_PARAM1 = "param1"
+        private const val ARG_PARAM2 = "param2"
+
+        // Factory method to create a new instance of this fragment
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MessagesFragment().apply {
+            ContactsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -60,38 +64,27 @@ class MessagesFragment : Fragment() {
             }
     }
 
-    fun createContactRecyclerView() {
-        val dataset = arrayOf("Message Response 1", "Message Reply 1", "Message Response 2", "Message Reply 2")
-        val customAdapter = CustomAdapter(dataset)
-
-        // Safe call version to avoid potential crashes
-        val recyclerView: RecyclerView? = view?.findViewById(R.id.fragment_contacts)
-        recyclerView?.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView?.adapter = customAdapter
-
-    }
-
     class CustomAdapter(private val dataSet: Array<String>) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
+        // ViewHolder class holds references to the views in each item layout
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val textView: TextView = view.findViewById(R.id.messagesTextView)
+            val textView: TextView = view.findViewById(R.id.contactsView)
+            val imageView: ImageView = view.findViewById(R.id.profile_image)
         }
 
-        // Create new views (invoked by the layout manager)
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-
             val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.fragment_messages, viewGroup, false)
-
+                .inflate(R.layout.list_item_contact, viewGroup, false)
             return ViewHolder(view)
         }
+
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
             viewHolder.textView.text = dataSet[position]
+            viewHolder.imageView.setImageResource(R.drawable.empty_profile)
         }
+
         override fun getItemCount() = dataSet.size
-
     }
+
 }
-
-

@@ -15,7 +15,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     Context context;
     List<Request> requests;
 
-    public MyAdapter(List<RouteListingPreference.Item> items, Context context) {
+    public MyAdapter(List<Request> requests, Context context) {
         this.requests = requests;
         this.context = context;
     }
@@ -43,3 +43,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         return requests.size();
     }
 }
+//class myAdapter(private val requestsArrayList : ArrayList<Request>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+//
+//}

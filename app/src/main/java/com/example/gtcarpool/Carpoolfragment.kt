@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,6 +73,19 @@ class Carpoolfragment : Fragment() {
                 }
             }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        dataInitialize()
+        val layoutManager = LinearLayoutManager(context)
+        recyclerView = view.findViewById(R.id.recyclerview)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+        adapter = MyAdapter(requestsArrayList, context)
+        recyclerView.adapter = adapter
+
+    }
+
     private fun dataInitialize() {
         requestsArrayList = arrayListOf<Request>();
         imageId = arrayOf (
@@ -88,7 +103,7 @@ class Carpoolfragment : Fragment() {
             "9/29/24",
             "9/28/24"
         )
-        description = arrayOf (
+        destination = arrayOf (
             "NAV",
             "West Village",
             "Culc"

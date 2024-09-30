@@ -14,16 +14,15 @@ class MainActivity : AppCompatActivity() {
         val contactsFragment = ContactsFragment()
         val messagesFragment = MessagesFragment()
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val profileFragment = ProfileFragment()
         setCurrentFragment(carpoolFragment)
         bottomNavigationView.setOnNavigationItemSelectedListener {
 
             when(it.itemId){
                 R.id.home->setCurrentFragment(carpoolFragment)
                 R.id.carpool->setCurrentFragment(carpoolFragment)
-                R.id.settings->setCurrentFragment(carpoolFragment)
-                R.id.messages->setCurrentFragment(contactsFragment)
-                // R.id.messages->setCurrentFragment(messagesFragment) // Will be edited later
-
+                R.id.settings->setCurrentFragment(profileFragment)
+                R.id.messages->setCurrentFragment(messagesFragment)
             }
             true
         }

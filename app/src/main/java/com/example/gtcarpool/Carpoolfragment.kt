@@ -78,6 +78,37 @@ class Carpoolfragment : Fragment() {
             R.drawable.a,
             R.drawable.a
         )
+        name = arrayOf (
+            "Eren Yeager",
+            "Nitya",
+            "Hi"
+        )
+        date = arrayOf (
+            "9/30/24",
+            "9/29/24",
+            "9/28/24"
+        )
+        description = arrayOf (
+            "NAV",
+            "West Village",
+            "Culc"
+        )
+        pickupLocation = arrayOf (
+            "Airport",
+            "Airport",
+            "Airport"
+        )
+        description = arrayOf (
+                "hi",
+        "hiii",
+        "hiiiiiii"
+        )
+
+        for (i in imageId.indices) {
+            val requestss = Request( name[i], date[i], destination[i], pickupLocation[i], imageId[i], description[i]);
+            requestsArrayList.add(requestss);
+        }
+
 
     }
 }

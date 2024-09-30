@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <!-- Profile Picture on the left -->
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/empty_profile"
+        android:contentDescription="@string/profile_picture"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_vertical"/>
+
+    <!-- Contact Name on the right -->
+    <TextView
+        android:id="@+id/contactsView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_name"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical"/>
+
+</LinearLayout>
+

@@ -6,17 +6,11 @@
     android:layout_marginLeft="@dimen/cardview_compat_inset_shadow"
     android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
     android:gravity="center_vertical"
-    tools:context=".MessagesFragment">
+    tools:context=".ContactsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_messages"
+        android:id="@+id/fragment_contacts"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/messagesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/messages_chat"
-        android:textSize="18sp"/>
 </FrameLayout>

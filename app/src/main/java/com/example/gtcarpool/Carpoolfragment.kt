@@ -120,7 +120,7 @@ class Carpoolfragment : Fragment() {
         )
 
         for (i in imageId.indices) {
-            val requestss = Request( name[i], date[i], destination[i], pickupLocation[i], imageId[i], description[i]);
+            val requestss = Request(date[i], destination[i], pickupLocation[i], description[i], imageId[i],  name[i]);
             requestsArrayList.add(requestss);
         }
 

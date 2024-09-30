@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         val carpoolFragment = Carpoolfragment()
         val messagesFragment = MessagesFragment()
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val requestsFragment = RequestsFragment()
         val profileFragment = ProfileFragment()
         setCurrentFragment(carpoolFragment)
         bottomNavigationView.setOnNavigationItemSelectedListener {
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.carpool->setCurrentFragment(carpoolFragment)
                 R.id.settings->setCurrentFragment(profileFragment)
                 R.id.messages->setCurrentFragment(messagesFragment)
+                R.id.requests->setCurrentFragment(requestsFragment)
             }
             true
         }

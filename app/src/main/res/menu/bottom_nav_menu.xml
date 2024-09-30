@@ -13,6 +13,10 @@
         android:title="@string/nav_messages"
         android:icon="@drawable/icon_1_foreground"/>
     <item
+        android:id="@+id/requests"
+        android:title="@string/nav_requests"
+        android:icon="@drawable/icon_1_foreground"/>
+    <item
         android:id="@+id/settings"
         android:title="@string/nav_settings"
         android:icon="@drawable/icon_1_foreground"/>

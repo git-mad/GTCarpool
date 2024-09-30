@@ -5,11 +5,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
+private lateinit var adapter: MyAdapter
+private lateinit var recyclerView: RecyclerView
+private lateinit var requestsArrayList: ArrayList<Request>
+lateinit var imageId: Array<Int>
+lateinit var name : Array<String>
+lateinit var date : Array<String>
+lateinit var destination : Array<String>
+lateinit var pickupLocation : Array<String>
+lateinit var description : Array<String>
+
+
+
+
 
 /**
  * A simple [Fragment] subclass.
@@ -55,5 +70,14 @@ class Carpoolfragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    private fun dataInitialize() {
+        requestsArrayList = arrayListOf<Request>();
+        imageId = arrayOf (
+            R.drawable.a,
+            R.drawable.a,
+            R.drawable.a
+        )
+
     }
 }

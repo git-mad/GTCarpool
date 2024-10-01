@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             // User is signed in, proceed with the bottom navigation
             setContentView(R.layout.bottom_nav)
             val carpoolFragment = Carpoolfragment()
-            val messagesFragment = MessagesFragment()
+            val contactsFragment = ContactsFragment()
             val profileFragment = ProfileFragment()
             val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
             setCurrentFragment(carpoolFragment)
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.home -> setCurrentFragment(carpoolFragment)
                     R.id.carpool -> setCurrentFragment(carpoolFragment)
                     R.id.settings -> setCurrentFragment(profileFragment)
-                    R.id.messages -> setCurrentFragment(messagesFragment)
+                    R.id.messages -> setCurrentFragment(contactsFragment)
                 }
                 true
             }

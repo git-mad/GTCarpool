@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1038130032136",
+    "project_id": "gtcarpool-c2578",
+    "storage_bucket": "gtcarpool-c2578.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038130032136:android:30653f386c5ad5c1946bbd",
+        "android_client_info": {
+          "package_name": "com.example.gtcarpool"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa-G7qin1_AV8xoPhcBUyKO5oiG2noOTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

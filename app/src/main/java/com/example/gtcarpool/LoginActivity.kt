@@ -13,6 +13,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: AppCompatImageButton
+    private lateinit var backButton: AppCompatImageButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -22,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.loginButton)
+        backButton = findViewById(R.id.backButton)
 
         // Handle login button click
         loginButton.setOnClickListener {
@@ -31,6 +33,10 @@ class LoginActivity : AppCompatActivity() {
             if (validateInputs(email, password)) {
                 loginUser(email, password)
             }
+        }
+
+        backButton.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
 
     }

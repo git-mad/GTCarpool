@@ -2,13 +2,13 @@ package com.example.gtcarpool
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import com.google.android.material.button.MaterialButton
 import androidx.appcompat.app.AppCompatActivity
 
 class WelcomeActivity : AppCompatActivity() {
 
-    private lateinit var loginButton: Button
-    private lateinit var signUpButton: Button
+    private lateinit var loginButton: MaterialButton
+    private lateinit var signUpButton: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

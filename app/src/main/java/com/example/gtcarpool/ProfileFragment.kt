@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
-import androidx.appcompat.app.AppCompatActivity
-
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,8 +23,9 @@ class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-   private lateinit var auth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth
     private lateinit var logoutButton: Button
+    private lateinit var savebutton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,17 +43,25 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
         logoutButton = view.findViewById(R.id.logoutButton)
+        savebutton = view.findViewById(R.id.savebutton)
 
         // Set an onClickListener to log out
         logoutButton.setOnClickListener {
             // Sign the user out
-           // auth.signOut()
+            auth.signOut()
 
             // Redirect to WelcomeActivity
             val intent = Intent(requireContext(), WelcomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
+        savebutton.setOnClickListener {
+            // navigate to ProfileViewActivity
+            val intent = Intent(requireContext(), ProfileViewActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+        
         return view
     }
 
@@ -77,6 +84,4 @@ class ProfileFragment : Fragment() {
                 }
             }
     }
-
-
 }

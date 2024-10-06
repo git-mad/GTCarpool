@@ -10,9 +10,12 @@ import com.google.firebase.auth.FirebaseAuth
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
         auth = FirebaseAuth.getInstance()
+
 
         // Check if the user is logged in
         if (auth.currentUser == null) {
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
         }
+
     }
 
     private fun setCurrentFragment(fragment: Fragment) =

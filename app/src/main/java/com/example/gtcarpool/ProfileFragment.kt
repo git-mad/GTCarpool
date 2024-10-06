@@ -33,7 +33,7 @@ class ProfileFragment : Fragment() {
     private lateinit var saveButton: Button
     private lateinit var nameEditText: EditText
     private lateinit var phoneEditText: EditText
-    private lateinit var emailEditTexts: EditText
+    //private lateinit var emailEditTexts: TextView
     private lateinit var gtidEditText: EditText
     private val db = Firebase.firestore
 
@@ -67,17 +67,20 @@ class ProfileFragment : Fragment() {
         saveButton = view.findViewById(R.id.savebutton)
         nameEditText = view.findViewById(R.id.nameTextEdit)
         phoneEditText = view.findViewById(R.id.editTextPhone)
-        emailEditTexts = view.findViewById(R.id.emailEditText)
+        //emailEditTexts = view.findViewById(R.id.emailEditText)
         gtidEditText = view.findViewById(R.id.gtidTextEdit)
+        var uid = FirebaseAuth.getInstance().currentUser?.uid
 
         saveButton.setOnClickListener {
             val user = hashMapOf(
                 "Name" to nameEditText.getText(),
                 "Phone" to phoneEditText.getText(),
                 "GTID" to gtidEditText.getText(),
-                "Email" to emailEditTexts.getText()
+                //"Email" to emailEditTexts.getText()
             )
-            db.collection("users").add(user)
+            if (uid != null) {
+                db.collection("users").document(uid).set(user)
+            }
         }
         return view
     }

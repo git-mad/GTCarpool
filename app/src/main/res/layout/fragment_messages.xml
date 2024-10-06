@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/cardview_compat_inset_shadow"
-    android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
-    android:gravity="center_vertical"
-    tools:context=".MessagesFragment">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_messages"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/messagesTextView"
+        android:id="@+id/chat_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/messages_chat"
-        android:textSize="18sp"/>
+        android:text="Chat Title"
+        android:textSize="20sp"
+        android:layout_gravity="top|center_horizontal"
+        android:padding="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_messages_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp" />
+
 </FrameLayout>

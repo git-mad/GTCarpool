@@ -9,26 +9,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MessagesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MessagesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var contactName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            contactName = it.getString(ARG_CONTACT_NAME)
         }
     }
 
@@ -40,58 +28,54 @@ class MessagesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_messages, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MessagesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MessagesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Load the chat messages for the contact
+        val chatTitle = view.findViewById<TextView>(R.id.chat_title)
+        chatTitle.text = "Chat with $contactName"
+
+        // Set up RecyclerView for chat messages
+        createContactRecyclerView(view)
     }
 
-    fun createContactRecyclerView() {
+    private fun createContactRecyclerView(view: View) {
         val dataset = arrayOf("Message Response 1", "Message Reply 1", "Message Response 2", "Message Reply 2")
         val customAdapter = CustomAdapter(dataset)
 
-        // Safe call version to avoid potential crashes
-        val recyclerView: RecyclerView? = view?.findViewById(R.id.fragment_contacts)
-        recyclerView?.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView?.adapter = customAdapter
+        val recyclerView: RecyclerView = view.findViewById(R.id.fragment_messages_recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = customAdapter
+    }
 
+    companion object {
+        private const val ARG_CONTACT_NAME = "contact_name"
+
+        fun newInstance(contactName: String) =
+            MessagesFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_CONTACT_NAME, contactName)
+                }
+            }
     }
 
     class CustomAdapter(private val dataSet: Array<String>) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val textView: TextView = view.findViewById(R.id.messagesTextView)
+            val textView: TextView = view.findViewById(R.id.chat_message)  // Make sure to use the correct ID
         }
 
-        // Create new views (invoked by the layout manager)
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-
             val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.fragment_messages, viewGroup, false)
-
+                .inflate(R.layout.list_item_message, viewGroup, false)
             return ViewHolder(view)
         }
+
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
             viewHolder.textView.text = dataSet[position]
         }
-        override fun getItemCount() = dataSet.size
 
+        override fun getItemCount() = dataSet.size
     }
 }
-
-

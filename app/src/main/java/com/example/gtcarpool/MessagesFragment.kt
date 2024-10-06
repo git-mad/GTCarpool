@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,9 +35,12 @@ class MessagesFragment : Fragment() {
         // Load the chat messages for the contact
         val chatTitle = view.findViewById<TextView>(R.id.chat_title)
         chatTitle.text = "Chat with $contactName"
-
-        // Set up RecyclerView for chat messages
         createContactRecyclerView(view)
+// Finish in Sprint 2
+//        val backButton = view.findViewById<Button>(R.id.backToContacts)
+//        backButton.setOnClickListener {
+//            requireActivity().supportFragmentManager.popBackStack()
+//        }
     }
 
     private fun createContactRecyclerView(view: View) {

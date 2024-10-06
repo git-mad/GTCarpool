@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.home->setCurrentFragment(carpoolFragment)
                 R.id.carpool->setCurrentFragment(carpoolFragment)
                 R.id.settings->setCurrentFragment(profileFragment)
-                R.id.messages->setCurrentFragment(messagesFragment)
+                R.id.messages->setCurrentFragment(contactsFragment)
             }
             true
         }

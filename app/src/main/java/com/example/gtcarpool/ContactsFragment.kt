@@ -46,12 +46,15 @@ class ContactsFragment : Fragment() {
         val dataset = arrayOf("John Doe", "Jane Doe", "James Madison", "Benjamin Franklin")
 
         val customAdapter = CustomAdapter(dataset) { contactName ->
+            Log.d("ContactsFragment", "Clicked on $contactName")
             val messagesFragment = MessagesFragment.newInstance(contactName)
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, messagesFragment)
-                .addToBackStack(null)
+                .replace(R.id.flFragment, messagesFragment)
+                .addToBackStack(null)  // This allows back navigation
                 .commit()
+            Log.d("ContactsFragment", "Switched to MessagesFragment")
         }
+
 
         val recyclerView: RecyclerView? = view?.findViewById(R.id.fragment_contacts_recyclerView)
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())

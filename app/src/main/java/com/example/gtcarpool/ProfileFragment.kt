@@ -7,12 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
 
 /**
  * A simple [Fragment] subclass.
@@ -25,6 +30,12 @@ class ProfileFragment : Fragment() {
     private var param2: String? = null
     private lateinit var auth: FirebaseAuth
     private lateinit var logoutButton: Button
+    private lateinit var saveButton: Button
+    private lateinit var nameEditText: EditText
+    private lateinit var phoneEditText: EditText
+    private lateinit var emailEditTexts: EditText
+    private lateinit var gtidEditText: EditText
+    private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +63,21 @@ class ProfileFragment : Fragment() {
             val intent = Intent(requireContext(), WelcomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+        }
+        saveButton = view.findViewById(R.id.savebutton)
+        nameEditText = view.findViewById(R.id.nameTextEdit)
+        phoneEditText = view.findViewById(R.id.editTextPhone)
+        emailEditTexts = view.findViewById(R.id.emailEditText)
+        gtidEditText = view.findViewById(R.id.gtidTextEdit)
+
+        saveButton.setOnClickListener {
+            val user = hashMapOf(
+                "Name" to nameEditText.getText(),
+                "Phone" to phoneEditText.getText(),
+                "GTID" to gtidEditText.getText(),
+                "Email" to emailEditTexts.getText()
+            )
+            db.collection("users").add(user)
         }
         return view
     }

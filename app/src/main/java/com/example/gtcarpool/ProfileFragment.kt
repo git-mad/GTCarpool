@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.google.firebase.auth.FirebaseAuth
+//import com.google.firebase.auth.FirebaseAuth
+import androidx.appcompat.app.AppCompatActivity
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +25,7 @@ class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var auth: FirebaseAuth
+   // private lateinit var auth: FirebaseAuth
     private lateinit var logoutButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +34,7 @@ class ProfileFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        auth = FirebaseAuth.getInstance()
+        //auth = FirebaseAuth.getInstance()
     }
 
     override fun onCreateView(
@@ -46,7 +48,7 @@ class ProfileFragment : Fragment() {
         // Set an onClickListener to log out
         logoutButton.setOnClickListener {
             // Sign the user out
-            auth.signOut()
+           // auth.signOut()
 
             // Redirect to WelcomeActivity
             val intent = Intent(requireContext(), WelcomeActivity::class.java)
@@ -75,4 +77,6 @@ class ProfileFragment : Fragment() {
                 }
             }
     }
+
+
 }

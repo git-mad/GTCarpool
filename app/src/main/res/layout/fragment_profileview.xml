@@ -200,5 +200,15 @@
         android:layout_height="wrap_content"
         android:text="Log Out"/>
 
+    <Button
+        android:id="@+id/EditProfileButton"
+        android:text = "Edit Profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="100dp"
+        android:translationX="280dp"
+        android:translationY="50dp"
+        android:onClick = "switchtoEdit"/>
+
 
 </FrameLayout>

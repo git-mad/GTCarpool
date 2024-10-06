@@ -24,6 +24,8 @@
         android:padding="16dp"
         android:textSize="24sp" />
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"

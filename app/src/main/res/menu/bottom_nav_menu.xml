@@ -9,10 +9,6 @@
         android:title="@string/nav_carpool"
         android:icon="@drawable/icon_1_foreground"/>
     <item
-        android:id="@+id/add_request"
-        android:title="New Request"
-        android:icon="@drawable/ic_add"/>
-    <item
         android:id="@+id/messages"
         android:title="@string/nav_messages"
         android:icon="@drawable/icon_1_foreground"/>

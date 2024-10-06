@@ -34,20 +34,20 @@ class NewRequest : AppCompatActivity() {
             val description = descriptionInput.text.toString().trim()
             val date = Date()
 
-            // Validate inputs
+
             if (name.isEmpty() || destination.isEmpty() || pickup.isEmpty() || description.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             } else {
-                // Create a new request object
+
                 val request = hashMapOf(
                     "name" to name,
                     "destination" to destination,
                     "pickup" to pickup,
                     "description" to description,
-                    "date" to date
+                    "date" to date,
                 )
 
-                // Store the request in Firestore
+
                 db.collection("requests")
                     .add(request)
                     .addOnSuccessListener { documentReference ->

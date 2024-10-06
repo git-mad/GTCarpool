@@ -4,7 +4,6 @@ package com.example.gtcarpool
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.gtcarpool.NewRequest
 
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -37,11 +36,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.carpool -> setCurrentFragment(carpoolFragment)
                     R.id.settings -> setCurrentFragment(profileFragment)
                     R.id.messages -> setCurrentFragment(contactsFragment)
-                    R.id.add_request -> {
-                        // Navigate to NewRequest activity
-                        val intent = Intent(this, NewRequest::class.java)
-                        startActivity(intent)
-                    }
+
                 }
                 true
             }

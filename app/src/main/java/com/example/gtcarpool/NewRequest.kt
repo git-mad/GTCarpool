@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
@@ -26,6 +27,7 @@ class NewRequest : AppCompatActivity() {
         val pickupInput = findViewById<TextInputEditText>(R.id.pickupInput)
         val descriptionInput = findViewById<TextInputEditText>(R.id.descriptionInput)
         val submitButton = findViewById<Button>(R.id.button)
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
 
         submitButton.setOnClickListener {
             val name = nameInput.text.toString().trim()
@@ -45,6 +47,7 @@ class NewRequest : AppCompatActivity() {
                     "pickup" to pickup,
                     "description" to description,
                     "date" to date,
+                    "uid" to uid
                 )
 
 

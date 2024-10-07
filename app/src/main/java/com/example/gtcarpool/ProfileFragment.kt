@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
@@ -35,6 +36,7 @@ class ProfileFragment : Fragment() {
     private lateinit var phoneEditText: EditText
     //private lateinit var emailEditTexts: TextView
     private lateinit var gtidEditText: EditText
+    private lateinit var emailTextView: TextView
     private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,14 +71,17 @@ class ProfileFragment : Fragment() {
         phoneEditText = view.findViewById(R.id.editTextPhone)
         //emailEditTexts = view.findViewById(R.id.emailEditText)
         gtidEditText = view.findViewById(R.id.gtidTextEdit)
-        var uid = FirebaseAuth.getInstance().currentUser?.uid
+        emailTextView = view.findViewById(R.id.emailTextView)
+        val auth = FirebaseAuth.getInstance()
+        emailTextView.text = auth.currentUser?.email
+        val uid = auth.currentUser?.uid
 
         saveButton.setOnClickListener {
             val user = hashMapOf(
-                "Name" to nameEditText.getText(),
-                "Phone" to phoneEditText.getText(),
-                "GTID" to gtidEditText.getText(),
-                //"Email" to emailEditTexts.getText()
+                "Name" to nameEditText.text.toString(),
+                "Phone" to phoneEditText.text.toString(),
+                "GTID" to gtidEditText.text.toString(),
+                "Email" to auth.currentUser?.email
             )
             if (uid != null) {
                 db.collection("users").document(uid).set(user)

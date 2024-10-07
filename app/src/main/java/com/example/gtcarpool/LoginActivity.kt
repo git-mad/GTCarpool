@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         // Get references to UI elements
-        emailEditText = findViewById(R.id.emailEditText)
+        emailEditText = findViewById(R.id.emailTextView)
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.loginButton)
         backButton = findViewById(R.id.backButton)

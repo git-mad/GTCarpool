@@ -17,7 +17,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 private lateinit var adapter: MyAdapter
-private lateinit var recyclerView: RecyclerView
+lateinit var recyclerView: RecyclerView
 private lateinit var requestsArrayList: ArrayList<Request>
 lateinit var imageId: Array<Int>
 lateinit var name : Array<String>

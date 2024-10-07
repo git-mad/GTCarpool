@@ -1,22 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/cardview_compat_inset_shadow"
-    android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
-    android:gravity="center_vertical"
-    tools:context=".MessagesFragment">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_messages"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:orientation="vertical"
+    android:background="@drawable/message_background">
 
     <TextView
-        android:id="@+id/messagesTextView"
+        android:id="@+id/chat_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/messages_chat"
-        android:textSize="18sp"/>
-</FrameLayout>
+        android:text="Chat Title"
+        android:textSize="20sp"
+        android:padding="16dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_messages_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="8dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <!-- EditText for typing a message -->
+        <EditText
+            android:id="@+id/typeMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Start chatting."
+            android:padding="8dp"
+            android:textSize="20sp"
+            android:background="@color/white"/>
+
+        <ImageButton
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Send message"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            app:srcCompat="@drawable/back_arrow"
+            android:rotation="90"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

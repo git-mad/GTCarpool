@@ -11,7 +11,7 @@
 
 
     <EditText
-        android:id="@+id/emailEditText"
+        android:id="@+id/emailTextView"
         android:layout_width="250dp"
         android:layout_height="60dp"
         android:hint="Username"
@@ -65,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditText"
+        app:layout_constraintTop_toBottomOf="@+id/emailTextView"
         app:layout_constraintVertical_bias="0.658" />
 
 

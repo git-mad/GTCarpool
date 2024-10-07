@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
-import android.widget.Button
 import androidx.appcompat.widget.AppCompatImageButton
 import android.widget.EditText
 import android.widget.Toast
@@ -23,7 +22,7 @@ class SignUpActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         // Get references to UI elements
-        emailEditText = findViewById(R.id.emailEditText)
+        emailEditText = findViewById(R.id.emailTextView)
         passwordEditText = findViewById(R.id.passwordEditText)
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText)
         signUpButton = findViewById(R.id.signUpButton)

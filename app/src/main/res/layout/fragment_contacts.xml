@@ -9,8 +9,26 @@
     tools:context=".ContactsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_contacts"
+        android:id="@+id/fragment_contacts_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="25dp"/>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"/>
+
+    <TextView
+        android:id="@+id/recent_messages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#673AB7"
+        android:padding="8dp"
+        android:textColor="@android:color/white"
+        android:text="Recent Messages"
+
+        android:textAlignment="center"/>
 
 </FrameLayout>

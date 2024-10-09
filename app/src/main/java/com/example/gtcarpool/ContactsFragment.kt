@@ -1,6 +1,7 @@
 package com.example.gtcarpool
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
  * create an instance of this fragment.
  */
 class ContactsFragment : Fragment() {
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -40,11 +42,21 @@ class ContactsFragment : Fragment() {
         createContactRecyclerView()
     }
 
-    fun createContactRecyclerView() {
+    private fun createContactRecyclerView() {
         val dataset = arrayOf("John Doe", "Jane Doe", "James Madison", "Benjamin Franklin")
-        val customAdapter = CustomAdapter(dataset)
 
-        val recyclerView: RecyclerView? = view?.findViewById(R.id.fragment_contacts)
+        val customAdapter = CustomAdapter(dataset) { contactName ->
+            Log.d("ContactsFragment", "Clicked on $contactName")
+            val messagesFragment = MessagesFragment.newInstance(contactName)
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.flFragment, messagesFragment)
+                .addToBackStack(null)  // This allows back navigation
+                .commit()
+            Log.d("ContactsFragment", "Switched to MessagesFragment")
+        }
+
+
+        val recyclerView: RecyclerView? = view?.findViewById(R.id.fragment_contacts_recyclerView)
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())
         recyclerView?.adapter = customAdapter
     }
@@ -64,10 +76,11 @@ class ContactsFragment : Fragment() {
             }
     }
 
-    class CustomAdapter(private val dataSet: Array<String>) :
-        RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+    class CustomAdapter(
+        private val dataSet: Array<String>,
+        private val onClick: (String) -> Unit  // Function to handle click
+    ) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-        // ViewHolder class holds references to the views in each item layout
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val textView: TextView = view.findViewById(R.id.contactsView)
             val imageView: ImageView = view.findViewById(R.id.profile_image)
@@ -80,11 +93,18 @@ class ContactsFragment : Fragment() {
         }
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-            viewHolder.textView.text = dataSet[position]
+            val contactName = dataSet[position]
+            viewHolder.textView.text = contactName
             viewHolder.imageView.setImageResource(R.drawable.empty_profile)
+
+            // Set the click listener for each item, passing the contact name to the onClick function
+            viewHolder.itemView.setOnClickListener {
+                Log.d("CustomAdapter", "Clicked on $contactName")
+                onClick(contactName)
+            }
+
         }
 
         override fun getItemCount() = dataSet.size
     }
-
 }

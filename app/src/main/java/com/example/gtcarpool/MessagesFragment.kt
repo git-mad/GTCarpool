@@ -1,97 +1,192 @@
+
 package com.example.gtcarpool
 
+import Message
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MessagesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MessagesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var auth: FirebaseAuth
+    private var contactName: String? = null
+    private lateinit var messageEditText: EditText
+    private lateinit var sendButton: ImageButton
+    private lateinit var customAdapter: CustomAdapter
+    private lateinit var messagesRef: CollectionReference
+    private val messagesDataset = mutableListOf<Message>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            contactName = it.getString(ARG_CONTACT_NAME)
         }
+        auth = FirebaseAuth.getInstance()
+        val chatId = "chat_1" // Example_id
+        messagesRef = FirebaseFirestore.getInstance().collection("messages").document(chatId).collection("messages")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_messages, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val chatTitle = view.findViewById<TextView>(R.id.chat_title)
+        chatTitle.text = "Chat with $contactName"
+
+        createContactRecyclerView(view)
+
+        messageEditText = view.findViewById(R.id.typeMessage)
+        sendButton = view.findViewById(R.id.sendButton)
+
+        sendButton.setOnClickListener {
+            val message = messageEditText.text.toString().trim()
+            if (message.isNotEmpty()) {
+                sendMessage()
+                messageEditText.text.clear()
+            } else {
+                Log.d("MessagesFragment", "Empty message, not sending.")
+            }
+        }
+        fetchMessages()
+    }
+
+    private fun sendMessage() {
+        val messageText = messageEditText.text.toString().trim()
+
+        if (messageText.isNotEmpty()) {
+            val senderUid = auth.currentUser?.uid ?: return
+            val senderName = auth.currentUser?.displayName ?: "Anonymous"
+            val receiverUid = "receiverUid"
+            val receiverName = contactName ?: "Unknown"
+            val messageNum = System.currentTimeMillis()
+
+            val timeStamp = System.currentTimeMillis()
+
+            val newMessage = Message(
+                content = messageText,
+                message_num = messageNum,
+                receiver_name = receiverName,
+                receiver_uid = receiverUid,
+                sender_name = senderName,
+                sender_uid = senderUid,
+                time = timeStamp
+            )
+
+            // Send the message to Firestore
+            messagesRef.add(newMessage).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    messageEditText.text.clear()
+                } else {
+                    Log.e("MessagesFragment", "Failed to send message: ${task.exception?.message}")
+                }
+            }
+        }
+    }
+
+
+    private fun createContactRecyclerView(view: View) {
+        customAdapter = CustomAdapter(messagesDataset)
+        val recyclerView: RecyclerView = view.findViewById(R.id.fragment_messages_recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = customAdapter
+    }
+
+    private fun fetchMessages() {
+        messagesRef.orderBy("message_num").addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Log.e("MessagesFragment", "Listen failed.", e)
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null && !snapshot.isEmpty) {
+                messagesDataset.clear()
+                for (document in snapshot.documents) {
+                    val message = document.toObject(Message::class.java)
+                    message?.let {
+                        Log.d("MessagesFragment", "Fetched message: ${it.content}") // Log fetched message
+                        messagesDataset.add(it) // Add the message to the dataset
+                    }
+                }
+                customAdapter.notifyDataSetChanged()
+            } else {
+                Log.d("MessagesFragment", "No messages found.")
+            }
+        }
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MessagesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        private const val ARG_CONTACT_NAME = "contact_name"
+
+        fun newInstance(contactName: String) =
             MessagesFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(ARG_CONTACT_NAME, contactName)
                 }
             }
     }
 
-    fun createContactRecyclerView() {
-        val dataset = arrayOf("Message Response 1", "Message Reply 1", "Message Response 2", "Message Reply 2")
-        val customAdapter = CustomAdapter(dataset)
 
-        // Safe call version to avoid potential crashes
-        val recyclerView: RecyclerView? = view?.findViewById(R.id.fragment_contacts)
-        recyclerView?.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView?.adapter = customAdapter
 
-    }
-
-    class CustomAdapter(private val dataSet: Array<String>) :
+    class CustomAdapter(private val dataSet: MutableList<Message>) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val textView: TextView = view.findViewById(R.id.messagesTextView)
+            val textView: TextView = view.findViewById(R.id.chat_message)
+            val timeView: TextView = view.findViewById(R.id.chat_message_time)  // Add a TextView for time
         }
 
-        // Create new views (invoked by the layout manager)
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-
             val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.fragment_messages, viewGroup, false)
-
+                .inflate(R.layout.list_item_message, viewGroup, false)
             return ViewHolder(view)
         }
+
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-            viewHolder.textView.text = dataSet[position]
+            val message = dataSet[position]
+            viewHolder.textView.text = message.content
+
+            // Convert timestamp to human-readable format
+            val dateFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+            val messageTime = dateFormat.format(Date(message.time))
+            viewHolder.timeView.text = messageTime
+
+            // Adjust alignment and background based on sender
+            val layoutParams = viewHolder.textView.layoutParams as LinearLayout.LayoutParams
+
+            if (message.sender_uid == FirebaseAuth.getInstance().currentUser?.uid) {
+                layoutParams.gravity = Gravity.END // Align to the right for the current user
+                viewHolder.textView.setBackgroundColor(Color.parseColor("#FFFFFF")) // Sender's message color
+            } else {
+                layoutParams.gravity = Gravity.START // Align to the left for other users
+                viewHolder.textView.setBackgroundColor(Color.parseColor("#F8EED2")) // Receiver's message color
+            }
+
+            viewHolder.textView.layoutParams = layoutParams
         }
+
         override fun getItemCount() = dataSet.size
-
     }
+
 }
-
-

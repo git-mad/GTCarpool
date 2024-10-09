@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
@@ -30,7 +31,7 @@ class ProfileFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var auth: FirebaseAuth
-    private lateinit var logoutButton: Button
+    private lateinit var logoutButton: AppCompatImageButton
     private lateinit var saveButton: Button
     private lateinit var nameEditText: EditText
     private lateinit var phoneEditText: EditText

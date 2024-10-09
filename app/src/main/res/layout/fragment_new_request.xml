@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewRequest">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create a Request:"
+        android:translationX="50dp"
+        android:translationY="10dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/nameInput"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:translationX="30dp"
+        android:translationY="90dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/destinationInput"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:hint="Destination"
+        android:translationX="30dp"
+        android:translationY="150dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/pickupInput"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:hint="Pickup Location"
+        android:translationX="30dp"
+        android:translationY="210dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/descriptionInput"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:translationX="30dp"
+        android:translationY="270dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:translationY="500dp" />
+
+</FrameLayout>

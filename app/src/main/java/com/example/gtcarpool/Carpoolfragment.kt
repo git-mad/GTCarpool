@@ -1,10 +1,12 @@
 package com.example.gtcarpool
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -44,6 +46,8 @@ class Carpoolfragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
     }
 
     override fun onCreateView(
@@ -51,7 +55,9 @@ class Carpoolfragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_carpoolfragment, container, false)
+
     }
 
     companion object {
@@ -83,6 +89,14 @@ class Carpoolfragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         adapter = MyAdapter(requestsArrayList, context)
         recyclerView.adapter = adapter
+
+        val addRequestButton = view.findViewById<ImageButton>(R.id.imageButton)
+        addRequestButton.setOnClickListener {
+            // Launch the NewRequest activity
+            val intent = Intent(activity, NewRequest::class.java)
+            startActivity(intent)
+        }
+
 
     }
 

@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 
 //https://www.youtube.com/watch?v=5mdV1hLbXzo
 // TODO: Rename parameter arguments, choose names that match
@@ -82,62 +84,56 @@ class Carpoolfragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataInitialize()
+
+        // Initialize the array list
+        requestsArrayList = ArrayList()
+
+        // Set up the RecyclerView
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.recyclerview)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
+
+        // Initialize the adapter with an empty list initially
         adapter = MyAdapter(requestsArrayList, context)
         recyclerView.adapter = adapter
 
+        // Fetch data from Firestore
+        dataInitialize()
+
+        // Add a request button
         val addRequestButton = view.findViewById<ImageButton>(R.id.imageButton)
         addRequestButton.setOnClickListener {
-            // Launch the NewRequest activity
             val intent = Intent(activity, NewRequest::class.java)
             startActivity(intent)
         }
-
-
     }
+
 
     private fun dataInitialize() {
-        requestsArrayList = arrayListOf<Request>();
-        imageId = arrayOf (
-            R.drawable.a,
-            R.drawable.a,
-            R.drawable.a
-        )
-        name = arrayOf (
-            "Eren Yeager",
-            "Nitya",
-            "Hi"
-        )
-        date = arrayOf (
-            "9/30/24",
-            "9/29/24",
-            "9/28/24"
-        )
-        destination = arrayOf (
-            "NAV",
-            "West Village",
-            "Culc"
-        )
-        pickupLocation = arrayOf (
-            "Airport",
-            "Airport",
-            "Airport"
-        )
-        description = arrayOf (
-                "hi",
-        "hiii",
-        "hiiiiiii"
-        )
+        // Initialize the array list
+        requestsArrayList = arrayListOf()
 
-        for (i in imageId.indices) {
-            val requestss = Request(date[i], destination[i], pickupLocation[i], description[i], imageId[i],  name[i]);
-            requestsArrayList.add(requestss);
-        }
+        // Get Firestore instance
+        val db = FirebaseFirestore.getInstance()
 
+        // Query Firestore to get all requests
+        db.collection("requests")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    // Parse each document into a Request object
+                    val request = document.toObject(Request::class.java)
 
+                    // Add to the requestsArrayList
+                    requestsArrayList.add(request)
+                }
+                // Notify adapter that the data has changed so it can update the RecyclerView
+                adapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(context, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
     }
+
 }

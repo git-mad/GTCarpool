@@ -6,14 +6,15 @@ public class Request {
     String destination = "";
     String pickupLocation = "";
     String description = "";
-    int image;
-
+    int image = R.drawable.a;
+    public Request() {
+    }
     public Request(String dateAsked, String destination, String pickupLocation, String description, int image, String name) {
         this.dateAsked = dateAsked;
         this.destination = destination;
         this.pickupLocation = pickupLocation;
         this.description = description;
-        this.image = image;
+
         this.name = name;
     }
 
@@ -32,9 +33,7 @@ public class Request {
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setImage(int image) {
-        this.image = image;
-    }
+
 
     public String getDateAsked() {
         return dateAsked;

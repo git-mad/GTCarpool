@@ -85,23 +85,21 @@ class Carpoolfragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize the array list
         requestsArrayList = ArrayList()
 
-        // Set up the RecyclerView
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.recyclerview)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
 
-        // Initialize the adapter with an empty list initially
+        // Initialize adapter with empty list
         adapter = MyAdapter(requestsArrayList, context)
         recyclerView.adapter = adapter
 
-        // Fetch data from Firestore
+        // Getting data from Firestore
         dataInitialize()
 
-        // Add a request button
+       
         val addRequestButton = view.findViewById<ImageButton>(R.id.imageButton)
         addRequestButton.setOnClickListener {
             val intent = Intent(activity, NewRequest::class.java)
@@ -111,24 +109,17 @@ class Carpoolfragment : Fragment() {
 
 
     private fun dataInitialize() {
-        // Initialize the array list
         requestsArrayList = arrayListOf()
-
-        // Get Firestore instance
         val db = FirebaseFirestore.getInstance()
-
-        // Query Firestore to get all requests
         db.collection("requests")
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    // Parse each document into a Request object
+                    //You're making each thing in Firebase into a request object and then adding it to the array list
                     val request = document.toObject(Request::class.java)
-
-                    // Add to the requestsArrayList
                     requestsArrayList.add(request)
                 }
-                // Notify adapter that the data has changed so it can update the RecyclerView
+                // Update RecyclerView
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->

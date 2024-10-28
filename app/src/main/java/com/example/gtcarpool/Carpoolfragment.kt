@@ -100,7 +100,7 @@ class Carpoolfragment : Fragment() {
         dataInitialize()
 
        
-        val addRequestButton = view.findViewById<ImageButton>(R.id.imageButton)
+        val addRequestButton = view.findViewById<ImageButton>(R.id.imagebutton)
         addRequestButton.setOnClickListener {
             val intent = Intent(activity, NewRequest::class.java)
             startActivity(intent)

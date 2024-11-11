@@ -112,18 +112,20 @@ class Carpoolfragment : Fragment() {
         requestsArrayList.clear();
         val db = FirebaseFirestore.getInstance()
         db.collection("requests")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    //You're making each thing in Firebase into a request object and then adding it to the array list
-                    val request = document.toObject(Request::class.java)
-                    requestsArrayList.add(request)
+            .addSnapshotListener { snapshots, exception ->
+                if (exception != null) {
+                    Toast.makeText(context, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
                 }
-                // Update RecyclerView
+
+                requestsArrayList.clear()
+                snapshots?.let {
+                    for (document in it) {
+                        val request = document.toObject(Request::class.java)
+                        requestsArrayList.add(request)
+                    }
+                }
                 adapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(context, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
 

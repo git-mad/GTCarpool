@@ -44,7 +44,7 @@ class NewRequest : AppCompatActivity() {
                 val request = hashMapOf(
                     "name" to name,
                     "destination" to destination,
-                    "pickup" to pickup,
+                    "pickupLocation" to pickup,
                     "description" to description,
                     "date" to date,
                     "uid" to uid

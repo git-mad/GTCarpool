@@ -109,7 +109,7 @@ class Carpoolfragment : Fragment() {
 
 
     private fun dataInitialize() {
-        requestsArrayList = arrayListOf()
+        requestsArrayList.clear();
         val db = FirebaseFirestore.getInstance()
         db.collection("requests")
             .get()

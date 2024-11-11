@@ -30,7 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.nameView.setText(requests.get(position).getName());
-        holder.dateView.setText(requests.get(position).getDateAsked());
+        holder.dateView.setText(requests.get(position).getDate().toDate().toString());
         holder.imageView.setImageResource(requests.get(position).getImage());
         holder.destinationView.setText(requests.get(position).getDestination());
         holder.pickupView.setText(requests.get(position).getPickupLocation());
